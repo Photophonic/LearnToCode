@@ -1,0 +1,7 @@
+.button {
+  margin: auto;
+  width: 100%;
+  padding: 10px;
+  border: solid 3px black;
+  display: block;
+}
