@@ -210,25 +210,23 @@ body {
   overflow: hidden;
   transition: 0.5s;
 }
-*/
 
 /* Javascript Styling Link */
-/* 
+
 .accordion .content-container.active .answer {
-    height: 150px;
+  height: 150px;
 }
 
 .accordion .content-container.active .question {
-    font-size: 18px;
-    transition: .5s;
+  font-size: 18px;
+  transition: 0.5s;
 }
 
 .accordion .content-container.active .question::after {
-    content: '-';
-    font-size: 30px;
-    transition: .5s;
-} 
-
+  content: "-";
+  font-size: 30px;
+  transition: 0.5s;
+}
 
 /* #################################
 
@@ -293,8 +291,7 @@ body {
          To-Do List Styling
 
    #################################  */
-
-
+/*
 body {
   height: 100vh;
   background: url(img/project-5.jpg) no-repeat center center/cover;
@@ -342,8 +339,10 @@ input {
   color: #fff;
 }
 
-/* Styling for task which get added to to-do list */
+*/
 
+/* Styling for task which get added to to-do list */
+/*
 .task {
   width: 100%;
   background-color: #fff;
@@ -393,3 +392,4 @@ input {
   background-color: red;
   color: #fff;
 }
+*/
