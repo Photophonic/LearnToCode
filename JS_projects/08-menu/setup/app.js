@@ -72,3 +72,35 @@ const menu = [
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
 ];
+
+const sectionCenter = document.querySelector(".section-center");
+
+// load initial item
+// will load a default value when the DOM is loaded
+window.addEventListener("DOMContentLoaded", function () {
+  // create a map method, provide an argument name
+  let displayMenu = menu.map(function (item) {
+    // map will loop through array and return values
+    // based on variable contained in object
+    // use the HTML skeleton from the file to create the template
+
+    return `<article class="menu-item">
+          <img src=${item.img} class="photo" alt=${item.title} />
+          <div class="item-info">
+            <header>
+              <h4>${item.title}</h4>
+              <h4 class="price">${item.price}</h4>
+            </header>
+            <p class="item-text">
+              ${item.desc}
+            </p>
+          </div>
+        </article>`;
+  });
+
+  // join method to create a single string, removing item spacing and commas
+  displayMenu = displayMenu.join("");
+  // update the html on the page to display the items from the map
+  // .section-center is the main menu group on the page
+  sectionCenter.innerHTML = displayMenu;
+});
