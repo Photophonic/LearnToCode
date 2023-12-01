@@ -71,15 +71,33 @@ const menu = [
     img: "./images/item-9.jpeg",
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
+  {
+    id: 10,
+    title: "steak dinner",
+    category: "dinner",
+    price: 39.99,
+    img: "./images/item-10.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
 ];
 
 const sectionCenter = document.querySelector(".section-center");
+const btnContainer = document.querySelector(".btn-container");
 
 // load initial item
 // will load a default value when the DOM is loaded
 window.addEventListener("DOMContentLoaded", function () {
+  // call the function below using our menu array above.
+  displayMenuItmes(menu);
+
+  displayButtons();
+});
+
+// create standalone function, pass in our array parameter
+function displayMenuItmes(menuItems) {
   // create a map method, provide an argument name
-  let displayMenu = menu.map(function (item) {
+  // Map objects are collections of key-value pairs
+  let displayMenu = menuItems.map(function (item) {
     // map will loop through array and return values
     // based on variable contained in object
     // use the HTML skeleton from the file to create the template
@@ -103,4 +121,57 @@ window.addEventListener("DOMContentLoaded", function () {
   // update the html on the page to display the items from the map
   // .section-center is the main menu group on the page
   sectionCenter.innerHTML = displayMenu;
-});
+}
+
+function displayButtons() {
+  const categories = menu.reduce(
+    // iterate over the passed in array
+    function (values, item) {
+      // check if the value is already in the area.
+      if (!values.includes(item.category)) {
+        // add to the new array
+        values.push(item.category);
+      }
+      // need to return the values of the reduce array
+      return values;
+    },
+    // default initial value array, this case all categories
+    ["all"]
+  );
+  //console.log(categories);
+  const categoryBtn = categories
+    .map(function (category) {
+      return `<button class="filter-btn" type="button" data-id=${category}>${category}</button>`;
+    })
+    .join("");
+
+  btnContainer.innerHTML = categoryBtn;
+  // Look for buttons
+  const filterBtn = document.querySelectorAll(".filter-btn");
+
+  //filter items
+  // loop over all filter buttons
+  filterBtn.forEach(function (btn) {
+    // add event listener to each, look for event parameter
+    btn.addEventListener("click", function (e) {
+      // grabs the info for the data-id="" item on the HTML
+      const category = e.currentTarget.dataset.id;
+      console.log(category);
+      // create new array of objects based on the filtered menu array
+      const menuCategory = menu.filter(function (menuItem) {
+        //console.log(menuItem);
+        if (menuItem.category === category) {
+          //console.log("if ", menuItem);
+          return menuItem;
+        }
+      });
+      //console.log("to the if output");
+      if (category === "all") {
+        displayMenuItmes(menu);
+      } else {
+        //console.log(menuCategory);
+        displayMenuItmes(menuCategory);
+      }
+    });
+  });
+}

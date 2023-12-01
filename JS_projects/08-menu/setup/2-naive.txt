@@ -71,44 +71,76 @@ const menu = [
     img: "./images/item-9.jpeg",
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
+  {
+    id: 10,
+    title: "steak dinner",
+    category: "dinner",
+    price: 39.99,
+    img: "./images/item-10.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
 ];
-// get parent element
+
 const sectionCenter = document.querySelector(".section-center");
-const btnContainer = document.querySelector(".btn-container");
-const filterBtns = document.querySelectorAll(".filter-btn");
-// display all items when page loads
+
+// Look for buttons
+const filterBtn = document.querySelectorAll(".filter-btn");
+
+// load initial item
+// will load a default value when the DOM is loaded
 window.addEventListener("DOMContentLoaded", function () {
-  diplayMenuItems(menu);
+  // call the function below using our menu array above.
+  displayMenuItmes(menu);
+
+  
+
 });
 
-filterBtns.forEach(function (btn) {
+
+
+//filter items
+// loop over all filter buttons
+filterBtn.forEach(function (btn) {
+  // add event listener to each, look for event parameter
   btn.addEventListener("click", function (e) {
-    // console.log(e.currentTarget.dataset);
+    // grabs the info for the data-id="" item on the HTML
     const category = e.currentTarget.dataset.id;
+    console.log(category);
+    // create new array of objects based on the filtered menu array
     const menuCategory = menu.filter(function (menuItem) {
-      // console.log(menuItem.category);
+      console.log(menuItem);
       if (menuItem.category === category) {
+        console.log("if ", menuItem);
         return menuItem;
       }
     });
+    console.log("to the if output");
     if (category === "all") {
-      diplayMenuItems(menu);
+      displayMenuItmes(menu);
     } else {
-      diplayMenuItems(menuCategory);
+      console.log(menuCategory);
+      displayMenuItmes(menuCategory);
     }
   });
 });
 
-function diplayMenuItems(menuItems) {
+
+
+// create standalone function, pass in our array parameter
+function displayMenuItmes(menuItems) {
+  // create a map method, provide an argument name
+  // Map objects are collections of key-value pairs
   let displayMenu = menuItems.map(function (item) {
-    // console.log(item);
+    // map will loop through array and return values
+    // based on variable contained in object
+    // use the HTML skeleton from the file to create the template
 
     return `<article class="menu-item">
-          <img src=${item.img} alt=${item.title} class="photo" />
+          <img src=${item.img} class="photo" alt=${item.title} />
           <div class="item-info">
             <header>
               <h4>${item.title}</h4>
-              <h4 class="price">$${item.price}</h4>
+              <h4 class="price">${item.price}</h4>
             </header>
             <p class="item-text">
               ${item.desc}
@@ -116,8 +148,10 @@ function diplayMenuItems(menuItems) {
           </div>
         </article>`;
   });
-  displayMenu = displayMenu.join("");
-  // console.log(displayMenu);
 
+  // join method to create a single string, removing item spacing and commas
+  displayMenu = displayMenu.join("");
+  // update the html on the page to display the items from the map
+  // .section-center is the main menu group on the page
   sectionCenter.innerHTML = displayMenu;
 }
