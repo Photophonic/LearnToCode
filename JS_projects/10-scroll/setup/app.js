@@ -51,6 +51,57 @@ window.addEventListener("scroll", function () {
     // remove it
     navbar.classList.remove("fixed-nav");
   }
+
+  if (scrollHeight > 500) {
+    topLink.classList.add("show-link");
+  } else {
+    topLink.classList.remove("show-link");
+  }
 });
 // ********** smooth scroll ************
-// select links
+// select all links
+const scrollLinks = document.querySelectorAll(".scroll-link");
+
+// loop over all links, use the link as the parameter
+scrollLinks.forEach(function (link) {
+  // use e (event) as the parameter
+  link.addEventListener("click", function (e) {
+    // prevent default smooth scroll behavior
+    e.preventDefault();
+    // navigate to specific spot on scroll
+    // use current target so JS knows which item in the loop
+    // looking for the specific href on link
+    // slice extracts a section of a string without modifying original string
+    // 1 = index 1 to skip the hashtag on id
+    const id = e.currentTarget.getAttribute("href").slice(1);
+    const element = document.getElementById(id);
+    //offsetTop - A Number, representing the top position of the element, in pixels
+    // grab the relative position of the element
+
+    // calculate the proper height, should setup globally
+    const navHeight = navbar.getBoundingClientRect().height;
+    const containerHeight = links.getBoundingClientRect().height;
+    // fixed-nav class added above at line 41
+    const fixedNav = navbar.classList.contains("fixed-nav");
+
+    // position is corrected by subtracting navHeight from offset
+    let position = element.offsetTop - navHeight;
+
+    // if fixedNav is not attached
+    if (!fixedNav) {
+      position = position - navHeight;
+    }
+
+    // for a compact screen. 82 is the height the normal navbar
+    if (navHeight > 82) {
+      position = position + containerHeight;
+    }
+    // left margin, top position = the offsetTop
+    window.scrollTo({
+      left: 0,
+      top: position,
+    });
+    // close the links window by setting height back to 0
+    linksContainer.style.height = 0;
+  });
+});
