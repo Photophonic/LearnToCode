@@ -28,5 +28,17 @@ const deadline = document.querySelector(".deadline");
 const time = document.querySelectorAll(".deadline-format h4");
 
 // this will get a str of the current system time
+// can set a specfic date using the following format:
 // YYYY, MM (0 index), DD, HH24, MM, SS
-let futureDate = new Date(2020, 4, 24, 17, 30, 0);
+let futureDate = new Date(2024, 0, 9, 17, 30, 0);
+
+const year = futureDate.getFullYear();
+// getDate() returns the day as a number
+const day = futureDate.getDate();
+// use getDay() to return the day in the week for the array
+const dayName = weekdays[futureDate.getDay()];
+const hours = futureDate.getHours();
+const minutes = futureDate.getMinutes();
+const month = months[futureDate.getMonth()];
+
+giveaway.textContent = `giveaway ends on ${dayName}, ${day} ${month}, ${year}, ${hours}:${minutes}.`;
