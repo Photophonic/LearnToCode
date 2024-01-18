@@ -11,3 +11,36 @@ I just told you! You've killed me! Fry! Quit doing the right thing, you jerk! Mi
   `Man braid celiac synth freegan readymade, pitchfork fam salvia waistcoat lomo bitters gentrify four loko. Pitchfork semiotics post-ironic vegan. Tofu meditation microdosing hashtag semiotics venmo. Flexitarian vape tilde taiyaki. Prism poutine farm-to-table, messenger bag vegan taxidermy tattooed sartorial squid jean shorts fixie selvage trust fund vape.`,
   `Rutters Plate Fleet boom chandler Brethren of the Coast handsomely lookout marooned brigantine knave. Buccaneer gangway jack rum loot spyglass line Jack Tar fore gaff. Gaff topmast scuttle ballast swab draught measured fer yer chains dance the hempen jig Chain Shot yardarm.`,
 ];
+
+const form = document.querySelector(".lorem-form");
+const amount = document.getElementById("amount");
+const result = document.querySelector(".lorem-text");
+
+// add event listener on the form to listen for submit action
+form.addEventListener("submit", function (e) {
+  // target event object and prevent submission of form
+  e.preventDefault();
+  // get value of the input box and convert to int
+  const value = parseInt(amount.value);
+  console.log(value);
+  // look for null with isNan(x), less or more than size of text array
+  if (isNaN(value) || value <= 0 || value > 9) {
+    // update html with inner, use css class, and value from array
+    result.innerHTML = `<p class="result">${
+      text[Math.floor(Math.random() * 9)]
+    }</p>`;
+  } else {
+    // return a section of the array starting at position 0
+    let tempText = text.slice(0, value);
+    // pass in the sliced section to return a new array
+    tempText = tempText
+      .map(function (item) {
+        // update our previous array as a block of html code
+        return `<p class="result">${item}</p>`;
+      })
+      // add all the elements of the array into a single string
+      .join("");
+    // update the html with the returned value of the map
+    result.innerHTML = tempText;
+  }
+});
